@@ -1,4 +1,4 @@
-# mesto-react
+# Проект: Mesto
 
 ### Обзор
 * Интро
@@ -15,6 +15,6 @@
 
 **Посмотреть проект**
 
-* [Ссылка на проект](https://annaryabko.github.io/mesto-react/index.html)
+* [Ссылка на проект](https://annaryabko.github.io/mesto-react/)
 
 Спасибо!
