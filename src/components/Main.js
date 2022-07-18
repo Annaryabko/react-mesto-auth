@@ -33,7 +33,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     .catch((err) => {
       console.log(err);
     })
-  })
+  }, [])
 
   const [cards, setCards] = useState([]);
 
@@ -47,7 +47,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     .catch((err) => {
       console.log(err);
     })
-  })
+  }, [])
 
   return (
     <>

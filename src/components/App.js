@@ -50,9 +50,9 @@ function App() {
       name="popup_edit"
       title="Редактировать профиль"
       buttonValue="Сохранить">
-          <input className="popup__input popup__input_type_name" type="text" id="name-input" name="name" placeholder="Имя"  minlength="2" maxlength="40" required/>
+          <input className="popup__input popup__input_type_name" type="text" id="name-input" name="name" placeholder="Имя"  minLength="2" maxLength="40" required/>
           <span className="popup__input-error name-input-error"></span>
-          <input className="popup__input popup__input_type_description" type="text" id="description-input" name="about" placeholder="Род занятий"  minlength="2" maxlength="200" required/>
+          <input className="popup__input popup__input_type_description" type="text" id="description-input" name="about" placeholder="Род занятий"  minLength="2" maxLength="200" required/>
           <span className="popup__input-error description-input-error"></span>
     </PopupWithForm>
 
@@ -80,7 +80,7 @@ function App() {
         name="popup_add"
         title="Новое место"
         buttonValue="Сохранить">
-          <input className="popup__input popup__input_type_title" type="text" id="title-input" name="name" placeholder="Название"  minlength="2" maxlength="30" required/>
+          <input className="popup__input popup__input_type_title" type="text" id="title-input" name="name" placeholder="Название"  minLength="2" maxLength="30" required/>
           <span className="popup__input-error title-input-error"></span>
 
           <input className="popup__input popup__input_type_link" type="url" id="link-input" name="link" placeholder="Ссылка на картинку" required/>
