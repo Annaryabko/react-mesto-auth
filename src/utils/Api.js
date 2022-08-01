@@ -43,6 +43,14 @@ export class Api {
     });
   }
 
+  changeLikeCardStatus(cardId, isLiked) {
+    if (isLiked) {
+      return this.deleteLike(cardId);
+    } else {
+      return this.addLike(cardId);
+    }
+  }
+
   addLike(cardId) {
     return this._makeRequest(`cards/${cardId}/likes`, "PUT");
     // PUT https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
