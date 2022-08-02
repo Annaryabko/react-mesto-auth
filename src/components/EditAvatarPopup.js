@@ -1,21 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import PopupWithForm from "./PopupWithForm.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function EditAvatarPopup(props) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [avatar, setAvatar] = useState("");
   const avatarRef = React.useRef();
-
-  React.useEffect(() => {
-    if (currentUser && currentUser.avatar) {
-      setAvatar(currentUser.avatar);
-    }
-  }, [currentUser.avatar]);
-
-  function handleAvatarChange(e) {
-    setAvatar(e.target.value);
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -36,8 +25,6 @@ function EditAvatarPopup(props) {
     >
       <input
         ref={avatarRef}
-        onChange={handleAvatarChange}
-        value={avatar}
         className="popup__input popup__input_type_link"
         type="url"
         id="avatar-input"
