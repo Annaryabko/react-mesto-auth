@@ -8,14 +8,38 @@ import EditAvatarPopup from "./EditAvatarPopup.js";
 import AddPlacePopup from "./AddPlacePopup.js";
 import { api } from "../utils/Api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
+import Login from "./Login.js";
+import Register from "./Register.js";
+import InfoTooltip from "./InfoTooltip.js";
+import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
+import { withRouter } from "react-router";
+import ProtectedRoute from "./ProtectedRoute.js";
+import {userinfo} from '../utils/auth.js';
 
-function App() {
+function App({history}) {
+  const [authToken, setAuthToken] = useState(localStorage.getItem('token') || '');
+  const [authUserInfo, setAuthUserInfo] = useState({});
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    if (!authToken) {
+      return;
+    }
+
+    userinfo(authToken)
+      .then((data) => {
+        setAuthUserInfo(data);
+      })
+      .catch((e) => {
+        localStorage.removeItem('token');
+        setAuthToken('');
+      });
+  }, [authToken]);
 
   useEffect(() => {
     api
@@ -129,6 +153,22 @@ function App() {
       });
   }
 
+  function onRegisterSuccess() {
+    history.push('/sign-in');
+  }
+
+  function onLoginSuccess(token) {
+    localStorage.setItem('token', token);
+    setAuthToken(token);
+    history.push('/');
+  }
+
+  function onLogout() {
+    localStorage.removeItem('token');
+    setAuthToken('');
+    history.push('/sign-in');
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -162,8 +202,59 @@ function App() {
           onUpdateCards={handleAddPlaceSubmit}
         />
 
-        <Header />
-        <Main
+        {/* <BrowserRouter> */}
+          <Header onLogout={onLogout} email={authUserInfo.email} />
+
+          <Switch>
+            <Route exact path="/sign-up">
+              <Register
+                title="Регистрация"
+                buttonValue="Зарегистрироваться"
+                onSuccess={onRegisterSuccess}
+              />
+            </Route>
+            <Route path="/sign-in">
+              <Login
+                title="Вход"
+                buttonValue="Войти"
+                onSuccess={onLoginSuccess}
+              />
+            </Route>
+
+            <ProtectedRoute
+              path="/"
+              loggedIn={authToken}
+              component={Main}
+              onEditProfile={editProfile}
+              onAddPlace={addPlace}
+              onEditAvatar={editAvatar}
+              onCardClick={handleCardClick}
+              cards={cards}
+              handleCards={handleCards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
+          </Switch>
+        {/* </BrowserRouter> */}
+
+
+        {/* <Login
+          title="Вход"
+          buttonValue="Войти"
+        /> */}
+        {/* <Register
+          title="Регистрация"
+          buttonValue="Зарегистрироваться"
+        /> */}
+
+        {/* <InfoTooltip
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          
+        /> */}
+
+        
+        {/*<Main
           onEditProfile={editProfile}
           onAddPlace={addPlace}
           onEditAvatar={editAvatar}
@@ -173,10 +264,10 @@ function App() {
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
         />
-        <Footer />
+        <Footer /> */}
       </div>
     </CurrentUserContext.Provider>
   );
 }
 
-export default App;
+export default withRouter(App);

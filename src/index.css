@@ -43,3 +43,7 @@
 @import url(./blocks/popup/__opened/popup__opened.css);
 @import url(./blocks/popup/__picture/popup__picture.css);
 @import url(./blocks/popup/__description/popup__description.css);
+@import url(./blocks/login/login.css);
+@import url(./blocks/login/__input/login__input.css);
+@import url(./blocks/login/__inputs/login__inputs.css);
+@import url(./blocks/login/__button/login__button.css);
