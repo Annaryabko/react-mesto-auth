@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Footer from "./Footer.js";
 import Header from "./Header.js";
 import ImagePopup from "./ImagePopup.js";
 import Main from "./Main.js";
@@ -15,6 +14,8 @@ import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import { withRouter } from "react-router";
 import ProtectedRoute from "./ProtectedRoute.js";
 import {userinfo} from '../utils/auth.js';
+import successIcon from '../images/success-icon.svg';
+import errorIcon from '../images/error-icon.svg';
 
 function App({history}) {
   const [authToken, setAuthToken] = useState(localStorage.getItem('token') || '');
@@ -22,6 +23,8 @@ function App({history}) {
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
+  const [isToolTipSuccessPopupOpen, setisToolTipSuccessPopupOpen] = useState(false);
+  const [isToolTipErrorPopupOpen, setisToolTipErrorPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
@@ -111,6 +114,8 @@ function App({history}) {
     setisAddPlacePopupOpen(false);
     setisEditAvatarPopupOpen(false);
     setSelectedCard(null);
+    setisToolTipSuccessPopupOpen(false);
+    setisToolTipErrorPopupOpen(false);
   }
 
   function handleUpdateUser(data) {
@@ -154,6 +159,7 @@ function App({history}) {
   }
 
   function onRegisterSuccess() {
+    setisToolTipSuccessPopupOpen(true);
     history.push('/sign-in');
   }
 
@@ -161,6 +167,10 @@ function App({history}) {
     localStorage.setItem('token', token);
     setAuthToken(token);
     history.push('/');
+  }
+
+  function onError() {
+    setisToolTipErrorPopupOpen(true);
   }
 
   function onLogout() {
@@ -178,14 +188,6 @@ function App({history}) {
           onClose={closeAllPopups}
         />
 
-        {/* <PopupWithForm
-          isOpen={false}
-          onClose={closeAllPopups}
-          name="popup_confirm"
-          title="Вы уверены?"
-          buttonValue="Да">
-      </PopupWithForm> */}
-
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
@@ -201,8 +203,6 @@ function App({history}) {
           onClose={closeAllPopups}
           onUpdateCards={handleAddPlaceSubmit}
         />
-
-        {/* <BrowserRouter> */}
           <Header onLogout={onLogout} email={authUserInfo.email} />
 
           <Switch>
@@ -211,6 +211,7 @@ function App({history}) {
                 title="Регистрация"
                 buttonValue="Зарегистрироваться"
                 onSuccess={onRegisterSuccess}
+                onError={onError}
               />
             </Route>
             <Route path="/sign-in">
@@ -218,6 +219,7 @@ function App({history}) {
                 title="Вход"
                 buttonValue="Войти"
                 onSuccess={onLoginSuccess}
+                onError={onError}
               />
             </Route>
 
@@ -235,36 +237,24 @@ function App({history}) {
               onCardDelete={handleCardDelete}
             />
           </Switch>
-        {/* </BrowserRouter> */}
 
 
-        {/* <Login
-          title="Вход"
-          buttonValue="Войти"
-        /> */}
-        {/* <Register
-          title="Регистрация"
-          buttonValue="Зарегистрироваться"
-        /> */}
+          <InfoTooltip
+            isOpen={isToolTipSuccessPopupOpen}
+            onClose={closeAllPopups}
+            name="popup__infoToolTip popup__infoToolTip_success"
+            title="Вы успешно зарегистрировались!"
+            image={successIcon}
+          />
 
-        {/* <InfoTooltip
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          
-        /> */}
+          <InfoTooltip
+            isOpen={isToolTipErrorPopupOpen}
+            onClose={closeAllPopups}
+            name="popup__infoToolTip popup__infoToolTip_error"
+            title="Что-то пошло не так! Попробуйте ещё раз."
+            image={errorIcon}
+          />
 
-        
-        {/*<Main
-          onEditProfile={editProfile}
-          onAddPlace={addPlace}
-          onEditAvatar={editAvatar}
-          onCardClick={handleCardClick}
-          cards={cards}
-          handleCards={handleCards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
-        <Footer /> */}
       </div>
     </CurrentUserContext.Provider>
   );

@@ -11,23 +11,20 @@ function Header(props) {
     <header className="header">
       <div className="header__logo"></div>
       <div className="header__login">
-        {/* <NavLink to="/sign-in">Войти!!!</NavLink> */}
         <Switch>
           <Route path="/sign-up">
             <div className="header__login">
-              <Link to="/sign-in">Войти</Link>
-              {/* <a href="/sign-in">Войти</a> */}
+              <Link className="header__link" to="/sign-in">Войти</Link>
             </div>
           </Route>
           <Route path="/sign-in">
             <div className="header__register">
-            <Link to="/sign-up">Регистрация</Link>
-            {/* <a href="/sign-up">Регистрация</a> */}
+            <Link className="header__link" to="/sign-up">Регистрация</Link>
             </div>
           </Route>
           <Route path="/">
             <div className="header__logout">
-              {props.email} <a onClick={logout}>Выход</a>
+              {props.email} <a className="header__link" onClick={logout}> Выход</a>
             </div>
           </Route>
         </Switch>

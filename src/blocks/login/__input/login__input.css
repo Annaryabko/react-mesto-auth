@@ -1,15 +1,7 @@
 .login__input {
-  border: none;
   border-bottom: 1px solid #CCCCCC;
   color: white;
   background-color: transparent;
-  font-size: 14px;
-  margin: 8px 0;
-  overflow: hidden;
-  padding: 14px 0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
 }
 
 .login__input:focus{

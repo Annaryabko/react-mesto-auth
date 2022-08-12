@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import {login} from '../utils/auth.js';
 
+
 function Login({history, ...props}) {
-  const loginRef = React.useRef();
-  const passwordRef = React.useRef();
+  const [loginUser, setLoginUser] = useState("email@yandex.ru");
+  const [password, setPassword] = useState("somepassword");
+
 
   function onSubmit(e) {
     e.preventDefault();
     
-    login(loginRef.current.value, passwordRef.current.value)
+    login(loginUser, password)
       .then((token) => {
         props.onSuccess(token);
       })
       .catch(() => {
-        // показать ошибку
+        props.onError();
       });
+  }
+
+  function handleLoginChange(e) {
+    setLoginUser(e.target.value);
+  }
+
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
   }
 
   return (
@@ -23,14 +33,14 @@ function Login({history, ...props}) {
     >
       <h2 className="login__title">{props.title}</h2>
       <form
-          className="login__inputs"
+          className="popup__inputs login__inputs"
           name="login"
           onSubmit={onSubmit}
       >
       <input
-        defaultValue="email@yandex.ru"
-        ref={loginRef}
-        className="login__input"
+        value={loginUser}
+        onChange={handleLoginChange}
+        className="popup__input login__input"
         type="email"
         id="email-input"
         name="email"
@@ -38,9 +48,9 @@ function Login({history, ...props}) {
         required
       />
       <input
-        defaultValue="somepassword"
-        ref={passwordRef}
-        className="login__input"
+        value={password}
+        onChange={handlePasswordChange}
+        className="popup__input login__input"
         type="password"
         id="password-input"
         name="password"
@@ -48,7 +58,7 @@ function Login({history, ...props}) {
         required
       />
       <input
-        className="login__button"
+        className="popup__button login__button"
         type="submit"
         value={props.buttonValue}
       />

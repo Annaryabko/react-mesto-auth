@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import PopupWithForm from "./PopupWithForm.js";
 
 function InfoTooltip(props) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
 
   return (
     <PopupWithForm
@@ -13,7 +11,6 @@ function InfoTooltip(props) {
       title={props.title}
     >
       <img src={props.image} className="infoTooltip__image"></img>
-
     </PopupWithForm>
   );
 }
