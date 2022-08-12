@@ -15,6 +15,6 @@
 
 **Посмотреть проект**
 
-* [Ссылка на проект](https://annaryabko.github.io/react-mesto-auth/sign-in)
+* [Ссылка на проект](https://annaryabko.github.io/react-mesto-auth)
 
 Спасибо!
