@@ -10,14 +10,14 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import Login from "./Login.js";
 import Register from "./Register.js";
 import InfoTooltip from "./InfoTooltip.js";
-import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
+import { Route, Switch, useRouteMatch, BrowserRouter, Redirect } from 'react-router-dom';
 import { withRouter } from "react-router";
 import ProtectedRoute from "./ProtectedRoute.js";
 import {userinfo} from '../utils/auth.js';
 import successIcon from '../images/success-icon.svg';
 import errorIcon from '../images/error-icon.svg';
 
-function App({history}) {
+function App({match, location, history}) {
   const [authToken, setAuthToken] = useState(localStorage.getItem('token') || '');
   const [authUserInfo, setAuthUserInfo] = useState({});
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = useState(false);
@@ -28,6 +28,8 @@ function App({history}) {
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
+  const url = process.env.REACT_APP_ROUTE_PREFIX || '';
+
 
   useEffect(() => {
     if (!authToken) {
@@ -160,13 +162,13 @@ function App({history}) {
 
   function onRegisterSuccess() {
     setisToolTipSuccessPopupOpen(true);
-    history.push('/sign-in');
+    history.push(`${url}/sign-in`);
   }
 
   function onLoginSuccess(token) {
     localStorage.setItem('token', token);
     setAuthToken(token);
-    history.push('/');
+    history.push(`${url}/`);
   }
 
   function onError() {
@@ -176,7 +178,7 @@ function App({history}) {
   function onLogout() {
     localStorage.removeItem('token');
     setAuthToken('');
-    history.push('/sign-in');
+    history.push(`${url}/sign-in`);
   }
 
   return (
@@ -203,10 +205,10 @@ function App({history}) {
           onClose={closeAllPopups}
           onUpdateCards={handleAddPlaceSubmit}
         />
-          <Header onLogout={onLogout} email={authUserInfo.email} />
+          <Header onLogout={onLogout} email={authUserInfo.email} pathname={url} />
 
           <Switch>
-            <Route exact path="/sign-up">
+            <Route exact path={`${url}/sign-up`}>
               <Register
                 title="Регистрация"
                 buttonValue="Зарегистрироваться"
@@ -214,7 +216,7 @@ function App({history}) {
                 onError={onError}
               />
             </Route>
-            <Route path="/sign-in">
+            <Route path={`${url}/sign-in`}>
               <Login
                 title="Вход"
                 buttonValue="Войти"
@@ -224,7 +226,7 @@ function App({history}) {
             </Route>
 
             <ProtectedRoute
-              path="/"
+              path={`${url}/`}
               loggedIn={authToken}
               component={Main}
               onEditProfile={editProfile}
