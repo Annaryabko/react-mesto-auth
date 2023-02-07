@@ -1,4 +1,4 @@
-# Project: Mesto
+# Mesto project
 
 **About**
 
