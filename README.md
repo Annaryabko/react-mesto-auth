@@ -1,20 +1,15 @@
-# Проект: Mesto
+# Project: Mesto
 
-### Обзор
-* Интро
-* Описание
-* Посмотреть проект
+**About**
 
-**Интро**
+Social network for travelers.
 
-Проект о путешественнике.
+**Description**
 
-**Описание**
+Responsive web application with authorization. Adding and editing of travel list, interaction with the server, validation
 
-Двенадцатая курсовая работа в рамках курса Яндекс практикум. Адаптивный сайт о путеешественике и его путешествиях, версия Ефимовой Анны.
-
-**Посмотреть проект**
+**See project**
 
 * [Ссылка на проект](https://annaryabko.github.io/react-mesto-auth)
 
-Спасибо!
+Thank you!
