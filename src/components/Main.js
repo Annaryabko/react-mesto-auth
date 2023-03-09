@@ -44,7 +44,7 @@ function Main({
             <button
               className="profile__edit-button"
               type="button"
-              value="Отредактировать"
+              value="Edit"
               onClick={editProfile}
             ></button>
           </div>
@@ -53,7 +53,7 @@ function Main({
         <button
           className="profile__add-button"
           type="button"
-          value="Добавить"
+          value="Add place"
           onClick={addPlace}
         >
           +

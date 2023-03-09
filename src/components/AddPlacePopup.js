@@ -34,8 +34,8 @@ function AddPlacePopup(props) {
       onClose={props.onClose}
       onSubmit={handleSubmit}
       name="popup_add"
-      title="Новое место"
-      buttonValue="Сохранить"
+      title="New place"
+      buttonValue="Save"
     >
       <input
         value={cardName}
@@ -44,7 +44,7 @@ function AddPlacePopup(props) {
         type="text"
         id="title-input"
         name="name"
-        placeholder="Название"
+        placeholder="Name"
         minLength="2"
         maxLength="30"
         required
@@ -58,7 +58,7 @@ function AddPlacePopup(props) {
         type="url"
         id="link-input"
         name="link"
-        placeholder="Ссылка на картинку"
+        placeholder="Link to the picture"
         required
       />
       <span className="popup__input-error link-input-error"></span>

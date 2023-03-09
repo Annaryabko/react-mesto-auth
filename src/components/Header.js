@@ -15,17 +15,17 @@ function Header(props) {
         <Switch>
           <Route path={`${url}/sign-up`}>
             <div className="header__login">
-              <Link className="header__link" to={`${url}/sign-in`}>Войти</Link>
+              <Link className="header__link" to={`${url}/sign-in`}>Sign in</Link>
             </div>
           </Route>
           <Route path={`${url}/sign-in`}>
             <div className="header__register">
-            <Link className="header__link" to={`${url}/sign-up`}>Регистрация</Link>
+            <Link className="header__link" to={`${url}/sign-up`}>Sign up</Link>
             </div>
           </Route>
           <Route path={`${url}/`}>
             <div className="header__logout">
-              {props.email} <a className="header__link" onClick={logout}> Выход</a>
+              {props.email} <a className="header__link" onClick={logout}> Logout</a>
             </div>
           </Route>
         </Switch>

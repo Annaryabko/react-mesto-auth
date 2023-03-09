@@ -51,7 +51,7 @@ function Register(props) {
         value={props.buttonValue}
       />
       </form>
-      <div>Уже зарегистрированы? <Link className="login__link" to="/sign-in">Войти</Link></div>
+      <div>Allready registered? <Link className="login__link" to="/sign-in">Sign in</Link></div>
     </section>
   );
 }

@@ -184,6 +184,12 @@ function App({match, location, history}) {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
+          <div className="page__bg-cube"></div>
+          <div className="page__bg-cube"></div>
+          <div className="page__bg-cube"></div>
+          <div className="page__bg-cube"></div>
+          <div className="page__bg-cube"></div>
+          <div className="page__bg-cube"></div>
         <ImagePopup
           card={selectedCard}
           isOpen={!!selectedCard}
@@ -210,16 +216,16 @@ function App({match, location, history}) {
           <Switch>
             <Route exact path={`${url}/sign-up`}>
               <Register
-                title="Регистрация"
-                buttonValue="Зарегистрироваться"
+                title="Sign up"
+                buttonValue="Sign up"
                 onSuccess={onRegisterSuccess}
                 onError={onError}
               />
             </Route>
             <Route path={`${url}/sign-in`}>
               <Login
-                title="Вход"
-                buttonValue="Войти"
+                title="Sign in"
+                buttonValue="Sign in"
                 onSuccess={onLoginSuccess}
                 onError={onError}
               />
@@ -245,7 +251,7 @@ function App({match, location, history}) {
             isOpen={isToolTipSuccessPopupOpen}
             onClose={closeAllPopups}
             name="popup__infoToolTip popup__infoToolTip_success"
-            title="Вы успешно зарегистрировались!"
+            title="Registration was successful"
             image={successIcon}
           />
 
@@ -253,7 +259,7 @@ function App({match, location, history}) {
             isOpen={isToolTipErrorPopupOpen}
             onClose={closeAllPopups}
             name="popup__infoToolTip popup__infoToolTip_error"
-            title="Что-то пошло не так! Попробуйте ещё раз."
+            title="Registration failed. Try one more time."
             image={errorIcon}
           />
 
